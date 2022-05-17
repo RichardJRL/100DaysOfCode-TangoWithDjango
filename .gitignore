@@ -26,6 +26,7 @@ media
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
+.idea/**/*.iml
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.xml
