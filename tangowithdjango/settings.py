@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import rango.apps
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     # Both work for what is asked for in creating the first view in the 'Django Basics' chapter
     # 'rango.apps.RangoConfig',
     'rango',
-    # 'rango.tests_chapter3',
+    'rango.tests_chapter3',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,9 @@ WSGI_APPLICATION = 'tangowithdjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
+
     }
 }
 
