@@ -19,3 +19,5 @@ In the main Django project settings.py file make the following alterations:
 1. add `import os`
 2. edit `'NAME': BASE_DIR / 'db.sqlite3',` to instead read `'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),`
 Credit for this solution inevitably goes to [Stack Overflow](https://stackoverflow.com/questions/64634674/django-typeerror-argument-of-type-posixpath-is-not-iterable)!
+
+**Notes:** The `django.tests` module uses the standard Python library `unittest`.
