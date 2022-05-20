@@ -52,9 +52,15 @@ Credit for this solution inevitably goes to [Stack Overflow](https://stackoverfl
    2. Add the variable name of the static media directory to the special Django variable `STATICFILES_DIRS` so Django knows where to look for the static files. E.g. `STATICFILES_DIRS = [STATIC_DIR, ]`
    3. Define the subdirectory of the URL that static media will appear to be in. E.g. `STATIC_URL = '/static/'`
 2. Save the static media file to the Django project's `static` directory (or a subdirectory thereof).
-3. Open the HTML template file the media is to be added to and
+3. Open the HTML template file the static media is to be added to and
    1. Add the Django template tag `{% load staticfiles %}` at the top of the file, just *below* the `<!DOCTYPE html>` line (which must always be the first line, just like `#!/bin/bash` should be in a script)
    2. Add a reference to the static media file inside an HTML `<IMG>` tag. E.g. `<img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />`
 
 ## Serving a Dynamic Media File on a Webpage
-pg. 62
+1. Create a `media` directory in the Django project's root
+2. In the Django project's `settings.py`
+   1. Define the media directory's location using the `MEDIA_DIR` variable. E.g. `MEDIA_DIR = os.path.join(BASE_DIR, 'media')`
+   2. Add the variable name of the dynamic media directory to the special Django variable `MEDIA_ROOT`. E.g. `MEDIA_ROOT = MEDIA_DIR`
+   3. Define the subdirectory of the URL that dynamic meda will appear to be in. E.g. `MEDIA_URL = '/media/'`
+3. Open the HTML template file the dynamic media ist to be added to and
+   1. Add a reference to the dynamic media file inside an HTML `<IMG>` tag. E.g. `<img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a cat" />`
