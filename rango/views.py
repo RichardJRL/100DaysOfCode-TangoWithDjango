@@ -11,5 +11,5 @@ def index(request):
 
 
 def about(request):
-    return HttpResponse(
-        "Rango says here is the about page. To get back to the Rango homepage, click on <a href='/rango/'>Index</a>")
+    context_dict = {'boldmessage': 'RichardJRL'}
+    return render(request, 'rango/about.html', context=context_dict)
