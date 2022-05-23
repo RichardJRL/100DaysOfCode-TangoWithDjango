@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     # Both work for what is asked for in creating the first view in the 'Django Basics' chapter
     # 'rango.apps.RangoConfig',
     'rango',
-    'rango.tests_chapter3',
 ]
 
 MIDDLEWARE = [

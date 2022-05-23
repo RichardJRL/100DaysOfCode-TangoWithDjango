@@ -64,3 +64,21 @@ Credit for this solution inevitably goes to [Stack Overflow](https://stackoverfl
    3. Define the subdirectory of the URL that dynamic meda will appear to be in. E.g. `MEDIA_URL = '/media/'`
 3. Open the HTML template file the dynamic media ist to be added to and
    1. Add a reference to the dynamic media file inside an HTML `<IMG>` tag. E.g. `<img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a cat" />`
+
+# Summary of Chapter 5
+## Creating a Database
+The Django project's `settings.py` should already have a `DATABASES` section configured to use SQLite as the database engine.
+1. In the Django application's `models.py` file:c
+   1. create classes for each database table with each one inheriting from `models.Model`
+   2. Populate the classes with appropriate variables representing each database table field.
+   3. Add the `def __str__(self) return self.title` method to show the name of the object when `print()` is called upon it.
+2. Run `python manage.py migrate` to initialise the database for the Django project. This creates the standard set of tables necessary to support the project as a whole. It does not create tables for any apps within the project. 
+3. Create an administrative user to manage the database by running `python manage.py createsuperuser`.
+4. Now and every subsequent time that `models.py` is changed, run `python manage.py makemigrations rango` to create a migrations file
+5. Then run `python manage.py migrate` again to apply the changes recorded in the migrations file to the database itself.
+6. Optionally, to view the underlying SQL that Django uses to apply the migrations, run `manage.py sqlmigrate <app_name> <migration_number>`
+## Configure the Admin Interface
+1. Start the development server with `manage.py runserver` and navigate to [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
+2. Log in with the previously set admim user credentials. I have used:
+   - username: RichardJRL
+   - password: tangowithdjango
