@@ -72,6 +72,7 @@ The Django project's `settings.py` should already have a `DATABASES` section con
    1. create classes for each database table with each one inheriting from `models.Model`
    2. Populate the classes with appropriate variables representing each database table field.
    3. Add the `def __str__(self) return self.title` method to show the name of the object when `print()` is called upon it.
+   4. The `Meta` class and its useful properties can be inherited as a sub-class of the parent class. This adds useful metadata options to the class such as default ordering by a particular member variable of the class.
 2. Run `python manage.py migrate` to initialise the database for the Django project. This creates the standard set of tables necessary to support the project as a whole. It does not create tables for any apps within the project. 
 3. Create an administrative user to manage the database by running `python manage.py createsuperuser`.
 4. Now and every subsequent time that `models.py` is changed, run `python manage.py makemigrations rango` to create a migrations file
