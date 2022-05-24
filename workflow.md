@@ -46,7 +46,7 @@ Credit for this solution inevitably goes to [Stack Overflow](https://stackoverfl
    4. Use the `render()` function to generate an HttpResponse object as the view's return value. E.g. `render(request, 'rango/index.html', context=context_dict)`
 3. Map the view, *if it is a new one*, to an URL by modifying the Django project's `urls.py` file OR the application's `urls.py` file as required.
 
-## Serving a Static Media File on a Webpage
+## Serve a Static Media File on a Webpage
 1. In the Django project's `settings.py` file, create variables for
    1. The static media directory. E.g. `STATIC_DIR = os.path.join(BASE_DIR, 'static')`
    2. Add the variable name of the static media directory to the special Django variable `STATICFILES_DIRS` so Django knows where to look for the static files. E.g. `STATICFILES_DIRS = [STATIC_DIR, ]`
@@ -56,7 +56,7 @@ Credit for this solution inevitably goes to [Stack Overflow](https://stackoverfl
    1. Add the Django template tag `{% load staticfiles %}` at the top of the file, just *below* the `<!DOCTYPE html>` line (which must always be the first line, just like `#!/bin/bash` should be in a script)
    2. Add a reference to the static media file inside an HTML `<IMG>` tag. E.g. `<img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />`
 
-## Serving a Dynamic Media File on a Webpage
+## Serve a Dynamic Media File on a Webpage
 1. Create a `media` directory in the Django project's root
 2. In the Django project's `settings.py`
    1. Define the media directory's location using the `MEDIA_DIR` variable. E.g. `MEDIA_DIR = os.path.join(BASE_DIR, 'media')`
@@ -66,7 +66,7 @@ Credit for this solution inevitably goes to [Stack Overflow](https://stackoverfl
    1. Add a reference to the dynamic media file inside an HTML `<IMG>` tag. E.g. `<img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a cat" />`
 
 # Summary of Chapter 5
-## Creating a Database
+## Create a Database
 The Django project's `settings.py` should already have a `DATABASES` section configured to use SQLite as the database engine.
 1. In the Django application's `models.py` file:c
    1. create classes for each database table with each one inheriting from `models.Model`
@@ -83,3 +83,6 @@ The Django project's `settings.py` should already have a `DATABASES` section con
 2. Log in with the previously set admim user credentials. I have used:
    - username: RichardJRL
    - password: tangowithdjango
+## Create a Population Script for the Database
+Create a script to populate your database with realistic and credible data
+See the `populate_rango.py` script for more information. It is also a good introduction to Python's list and dictionary data structures.
