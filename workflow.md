@@ -7,7 +7,7 @@ This is handled by PyCharm; File -> New Project... Django Project
 ## Create a New Django App Inside a Project
 1. PyCharm does not have a menu option for creating an app (e.g. `rango`) inside the project (e.g. `tangowithdjango`) and its own documentation recommends the same as the book:
 `python manage.py startapp <appname>`
-2. Inform the Django project about the new app by adding it to the `INSTALLED_APPS` tuple in the project's `settings.py` file
+2. Inform the Django project about the new app by adding it to the `INSTALLED_APPS` tuple in the project's `settings.py` file. It works with `rango` but both PyCharm and the official Django tutorials suggest it should be `rango.apps.RangoConfig`.
 3. In the app's `views.py`
     1. Add `from django.http import HttpResponse` to the top of the file.
     2. Create the required views, ensuring they each return a `HttpResponse` object. E.g. `def index(request): return HttpResponse("Hello World")`
