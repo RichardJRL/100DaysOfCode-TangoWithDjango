@@ -86,3 +86,33 @@ The Django project's `settings.py` should already have a `DATABASES` section con
 ## Create a Population Script for the Database
 Create a script to populate your database with realistic and credible data
 See the `populate_rango.py` script for more information. It is also a good introduction to Python's list and dictionary data structures.
+
+# Summary of Chapter 6
+## Create a Data-Driven Webpage
+The goal is to create a webpage that incorporates information sourced from a database query. There are five main steps to accomplish this in Django.
+1. `import` the models to be used into `views.py`. E.g. `from rango.models import Category`.
+2. In the view function, query the model to obtain the data needed for customising the webpage. E.g. `most_liked_cats = Category.objects.order_by('-likes')[:5]`
+3. In the view function, pass the query results into the template's context. This will involve adding the data obtained from the model to a context dictionary.
+4. Create or modify the html template to display the data sourced from the model/database query. Use Django template tags to enclose logic e.g. `{% for category in categories }%` and Django template variables e.g. `{{ category.name }}` to display data sourced from the model/database. 
+5. Map an URL to the view created.
+## Add Slug Fields to Models to Create Readable URLs
+The `slugify()` function in Python takes a sentence and replaces the spaces in it with hyphens. This makes the sentence suitable for use in URLs without the need to "percent encode" the whitespace that would otherwise exist as spaces are not permitted in URLs.
+1. Import the slugify function `from django.template.defaultfilters import slugify`
+2. Add a data member to the model to hold the slugified text. E.g. `slug = models.SlugField()`
+3. Overload the default `save` method to automatically update the slug data member every time a model item is updated.
+```
+def save(self, *args, *kwargs):
+   self.slug = slugify(self.name)
+   super(Category, self).save(*args, *kwargs)
+```
+4. To prevent the slug data field from being user-created and have it always auto-generated from another data member, add the following to the app's `admin.py` file
+```
+class CategoryAdmin(admin.ModelAdmin):
+   prepopulated_fields = {'slug':('name',)}
+# Not forgetting to update the register command with the new class as follows
+admin.site.register(Category, CategoryAdmin)
+```
+5. Now the database migration and updating procedure from Chapter 5 should be carried out to add the slug field to every object in the model.
+6. After, *and only after*, updating the database, alter the `slug` data member to be unique with `slug = models.SlugField(unique=true)`
+
+# Create Webpages for Each Item in a Model
