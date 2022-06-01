@@ -81,6 +81,7 @@ def add_category(request):
             # The supplied form contained errors -
             # just print them to the terminal.
             print(form.errors)
+            # return redirect('/rango/')
     # Will handle the bad form, new form, or no form supplied cases.
     # Render the form with error messages (if any).
     return render(request, 'rango/add_category.html', {'form': form})
@@ -114,11 +115,14 @@ def add_page(request, category_name_slug):
                 # Now that the page is saved, we could confirm this.
                 # For now, just redirect the user back to the index view.
                 return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
+            else:
+                return redirect('/rango/')
         else:
             # The supplied form contained errors -
             # just print them to the terminal.
             print(form.errors)
             # Will handle the bad form, new form, or no form supplied cases.
             # Render the form with error messages (if any).
+            # return redirect('/rango/')
     context_dict = {'form': form, 'category': category}
     return render(request, 'rango/add_page.html', context=context_dict)
