@@ -115,4 +115,15 @@ admin.site.register(Category, CategoryAdmin)
 5. Now the database migration and updating procedure from Chapter 5 should be carried out to add the slug field to every object in the model.
 6. After, *and only after*, updating the database, alter the `slug` data member to be unique with `slug = models.SlugField(unique=true)`
 
-# Create Webpages for Each Item in a Model
+## Create Webpages for Each Item in a Model
+To create a webpage that can display each item in a model that matches a particular instance of another model which will have the URL format `/appname/modelname/model-item-name`, the following must be done.
+Or in the context of the Rango app, it is desired that there be a page for each individual category stored in the category model, and each of these category pages will display a list of items from the Page model that are associated with that particular category.
+1. Import the model containing the items to be displayed on each page in to the Python app's views.py
+2. Create a new view in views.py named `show_[modelname].py`. It's second argument should be te parameter use to query the model. 
+3. The category model can be queried for an item matching a string, e.g. `category = Category.objects.get(slug=category_name_slug)`.
+4. The returned Category item can then be used to select items from the Page model that reference that particular category item. E.g. `pages = Page.objects.filter(category=category)`
+5. The returned `pages` can then be passed to the return render request as part of the context_dictionary to render the items retrieved in the appropriate view. 
+6. Add an HTML template in `templates/[app_name]/` to display the view. It can make use of Django's template tags `{% ... %}` to include logic such as if statements and for loops to check if a category exists and iterate over objects to display the list of objects (exposed using template variable syntax `{{ ... }}`) that is required for the webpage.
+7. Update the Python app's `urls.py` to map the new view to an URL. This is complicated by part of the URL being a slug string drawn from one of the models. This can be accomodated with syntax such as: `path('category/<slug:category_name_slug>/', views.show_category, name='show_category')`
+
+# Summary of Chapter 7
