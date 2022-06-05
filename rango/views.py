@@ -28,6 +28,8 @@ def index(request):
 
 
 def about(request):
+    print(request.method)
+    print(request.user)
     context_dict = {'boldmessage': 'RichardJRL'}
     return render(request, 'rango/about.html', context=context_dict)
 
