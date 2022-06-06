@@ -127,3 +127,60 @@ Or in the context of the Rango app, it is desired that there be a page for each 
 7. Update the Python app's `urls.py` to map the new view to an URL. This is complicated by part of the URL being a slug string drawn from one of the models. This can be accomodated with syntax such as: `path('category/<slug:category_name_slug>/', views.show_category, name='show_category')`
 
 # Summary of Chapter 7
+## Workflow for Form Creation
+1. Create `forms.py` within the Django App's directory to store form-related classes.
+2. Create a `ModelForm` class for each model/database that is to be represented.
+3. Customise each form.
+4. Create or update a view to handle the form
+   1. How to display the form.
+   2. How to save the form data.
+   3. How to alert the user to input errors.
+5. Crate or update a template to display the form.
+6. Add an `urlpattern` to map to the new view.
+
+## Create `ModelForm` Classes
+Within the Django app's `forms.py` file, the `ModelForm` class will be used as the class to inherit from when creating new forms. `ModelForm` is a helper class that provides a pre-existing model for forms that can be built upon. It can be used after `from django import forms` is declared.
+Data fields on the form are declared as variables e.g. `name = forms.CharField(max_length=128, help_text='foo')` and they are based upon a `...Field` member of the `ModelForm` class that helps insure the input is correct.
+The class then contains a `Meta` sub-class (Meta being short for metadata) which links the ModelForm to a particular model/database. e.g.
+```
+class Meta:
+   model = Category
+   fields = ('name')
+```
+## Create Views that use Forms
+In the Django app's `views.py`, import the previously created form from `forms.py` then create a view that makes use of it
+```
+from rango.forms import CategoryForm
+from django.shortcuts import redirect
+...
+def add_category(request):
+   form = CategoryForm()
+   if request.method == 'POST':
+      form = CategoryForm(request.POST)
+      if form.is_valid():
+         form.save(commit=True)
+         return redirect('/index/')
+   else:
+      print(form.errors)
+   return render(request, 'rango/add_category.html', {'form': form})
+```
+## Create a Template for the Form
+In the templates directory for the Django app, create a new HTML file to hold the form template. One quirk of HTML forms is that the form must include separate sections for **both** *visible* **and** *invisible* fields. Invisible fields being ones where the user is not required to make their own input, but may still be needed to set default values (if defaults are not set in the model itself, for example). An example of a form template is:
+```
+<form id="category_form" method="post" action="/rango/add_category/">
+   {% csrf_token %}
+   {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+   {% endfor %}
+   {% for field in form.visible_fields %}
+      {{ field.errors }}
+      {{ field.help_text }}
+      {{ field }}
+   {% endfor %}
+   <input type="submit" name="submit" value="Create Category" />
+</form>
+```
+## Map the Form View to an URL
+This is the final step to adding a form - mapping the form view to an URL and this is accomplished as earlier.
+
+# Summary of Chapter 8
