@@ -184,3 +184,21 @@ In the templates directory for the Django app, create a new HTML file to hold th
 This is the final step to adding a form - mapping the form view to an URL and this is accomplished as earlier.
 
 # Summary of Chapter 8
+## HTML Templates
+The concept behind HTML template files is to repeat as little HTML content as possible. Common page elements, (e.g. title, sidebar, menu, footer) can be broken out into template files and a link to the template file is then included in every invidual webpage which then do not need to repeat (and keep up-to-date) common HTML elements.
+## HTML Base Template
+This should be the template which brings together all the various elements common to every page on the website - title, header etc... and is the only one that needs to begin with `<!DOCTYPE html>`. That first line should be followed with `{% load staticfiles %}`.
+Thereafter, it should also contain all the common HTML elements from the opening <HTML> tag to the closing <HTML> tag. Within the common elements, Django template tags that delineate blocks of HTML that will be replaced when individual site pages are composed should be located. These are the `block` template tags such as `{% block body_block %} ... {% endblock %}` They may be empty or contain default elements that will be displayed if an individual page does not override them with custom content defined in its own identically named `block` template tag section.
+## Individual Page Templates
+Other pages that are to make use of the base HTML template must begin with a template tag such as `{% extends 'site/base.html' %}` which informs Django that this HTML file is a customisation for the base template which is named within the `extends` tag. The elements of the base template that are to be replaced are defined within the same `block` tags that the base template possesses.
+`{% load staticfiles %}` should also be present at the top of each HTML file, regardless of whether the base template also includes it.
+## Relative URLs in Templates
+It is also convenient to use labels for own-site URLs instead of actual paths. For example replacing a link such as `<a href="/site/about/">About</a>` with a label like `<a href="{% url 'site:about' %}">About</a>`. This relies on the `app_name = site` variable being used in the Django app's `urls.py`
+## Using `render()` as the Return Function in Views
+The preferred method of generating a view is the `render()` method, which is used as follows
+```
+def my_view():
+   ...
+   return render(request, `URL`, context=context_dictionary)
+```
+# Summary of Chapter 9
