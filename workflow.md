@@ -202,3 +202,14 @@ def my_view():
    return render(request, `URL`, context=context_dictionary)
 ```
 # Summary of Chapter 9
+## User Accounts
+foo bar
+## Enabling Authentication
+To allow authentication to work, the project's `settings.py` file must include the following in the `INSTALLED_APPS` array:
+- `django.contrib.admin`
+- `django,contrib.auth`
+
+PyCharm should include these by default. If not, it will be necessary to follow the database migration procedure described previously in order to add the modules' tables to the database.
+## Altering Password Hashing
+Also present in `settings.py`, the `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference.
+
