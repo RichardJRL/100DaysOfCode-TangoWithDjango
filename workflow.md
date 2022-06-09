@@ -210,6 +210,9 @@ To allow authentication to work, the project's `settings.py` file must include t
 - `django,contrib.auth`
 
 PyCharm should include these by default. If not, it will be necessary to follow the database migration procedure described previously in order to add the modules' tables to the database.
-## Altering Password Hashing
-Also present in `settings.py`, the `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference.
-
+## Password options
+In `settings.py`, there are several options that are either present by default when a Django project is created in PyCharm, or which can be added to increase the robustness of password creation and storage. 
+### Password Hashing
+The `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference.
+### Password Validating
+AUTH_PASSWORD_VALIDATORS is present (*but does not appear to work by default on user-created forms*) to provide methods for enforcing password strength and quality.
