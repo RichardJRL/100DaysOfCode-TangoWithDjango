@@ -118,6 +118,10 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
+# Login handling
+# for use with the @login_required decorator
+LOGIN_URL = 'rango:login'
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 

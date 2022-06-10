@@ -216,3 +216,7 @@ In `settings.py`, there are several options that are either present by default w
 The `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference.
 ### Password Validating
 AUTH_PASSWORD_VALIDATORS is present (*but does not appear to work by default on user-created forms*) to provide methods for enforcing password strength and quality.
+
+
+
+## Restrict Access to Views with Python Decorators 
