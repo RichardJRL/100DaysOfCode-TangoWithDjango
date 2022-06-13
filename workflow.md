@@ -213,10 +213,43 @@ PyCharm should include these by default. If not, it will be necessary to follow 
 ## Password options
 In `settings.py`, there are several options that are either present by default when a Django project is created in PyCharm, or which can be added to increase the robustness of password creation and storage. 
 ### Password Hashing
-The `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference.
+The `PASSWORD_HASHERS` list can be used to alter the hashing algorithm from the default of PBKDF3. The first hashing algorithm found in the list will be used by Django, for it is a list of descending preference. I added `BCryptSHA256PasswordHasher` but it did not work because `bcrypt` was not yet added to the projects `requirements.txt` file. 
+To add Python modules to the virtual environment and the list of project requirements in PyCharm:
+1. `Ctrl+Alt+S` to bring up the settings window.
+2. Expand the `Projet [project_name]` section on the left of the window
+3. Select `Python Interpreter`
+4. Click the `+` icon above the list of already-installed requirements.
+5. Use the search function in the window that appears to find the package you need to add.
+6. Check and numerate `Specify version` and `Add options` boxes if or as required.
+7. Click `install` to add the module to the virtual envionment
+8. Add the module, along with any required version to the `requirements.txt` project file because the process above only ensures it is tracked and maintained within the Python virtual environment.
+The way to do this without PyCharm is `python -m pip install [packagename]`
 ### Password Validating
 AUTH_PASSWORD_VALIDATORS is present (*but does not appear to work by default on user-created forms*) to provide methods for enforcing password strength and quality.
-
-
-
-## Restrict Access to Views with Python Decorators 
+## User Accounts
+Django provides a User model that can be used as the basis of all user accounts in apps. It is imported from `django.contrib.auth.models.User`. The user model contains basic attributes such as
+- username
+- password
+- email address
+- first name
+- surname
+as well as attributes to set privileges such as
+- is_active
+- is_staff
+- is_superuser
+## Adding Additional User Attributes
+Additional user attributes can be created either by creating a new User class that inherits Django's User class **OR** by creating a new UserProfile class, each instance of which can be linked to an instance of a User object byt a one-to-one mapping. E.g inside the UserProfile class definition include `user = models.OneToOneField(User, on_delete=models.CASCADE)`.
+After adding user accounts to the application, it is necessary to migrate the database again so that new tables can be added to represent the app's users.
+## Adding User Creation
+- Create a UserProfile model.
+- Create UserForm and UserProfileForm forms.
+- Create a view to handle new user creation.
+- Create a template to display the UserForm and UserProfileForm
+- Map an URL to the view.
+### Create the New User Creation View
+Logic must be added to handle `get` or `post` HTML requests. The first will display the form, the second will register a new user. 
+## Create a Login Page
+The process here is similar to the user creation process described above. The view must still contain logic to differentiate between HTTP `post` and `get` requests. A view, template and URL mapping must be created, but there is NO form required. (Why?)
+## Restrict Access to Views with Python Decorators
+A Python decorator is a kind of tag that can dynamically alter the behaviour of a function. It is placed before the function, method or class and obviates the need to edit the source code of whatever it placed in front of.
+A decorator begins with an `@` symbol and Python modules have many built-in ones that can be used. The one used here is called `@login_required` and is used to automatically restrict access to particular views to only logged-in users. It is part of `django.contrib.auth.decorators` and it is simply placed on the line above the `def [viewname](...):` line.
