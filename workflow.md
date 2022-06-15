@@ -253,3 +253,29 @@ The process here is similar to the user creation process described above. The vi
 ## Restrict Access to Views with Python Decorators
 A Python decorator is a kind of tag that can dynamically alter the behaviour of a function. It is placed before the function, method or class and obviates the need to edit the source code of whatever it placed in front of.
 A decorator begins with an `@` symbol and Python modules have many built-in ones that can be used. The one used here is called `@login_required` and is used to automatically restrict access to particular views to only logged-in users. It is part of `django.contrib.auth.decorators` and it is simply placed on the line above the `def [viewname](...):` line.
+# Summary of Chapter 10
+## Cookies and Sessions
+Because HTTP is a stateless protocol and there is no persistent connection to old session state, cookies can be used to store data a webserver and a client wish to maintain over a certain period of time. This may be such information as whether a user is logged-in to a site or a list of items in a shopping cart.
+## Session ID
+A common use for a cookie is to hold a "Session ID" which is a unique string of characters to identify a unique session between a particular client and a webserver. This means that only the Session ID need be stored on the client, and other information such as usernames, passwords etc. can be maintained on the server and no longer needs to be transmitted between the server and client with each new web request.
+
+An alternative to using a Session ID cookie is to encode the Session ID within the URL - often as a seemingly random string after a `?` character.
+## Sessions and Django
+Django should already be providing a Session ID cookie for logged-in users to the Rango application as it already stands. This can be checked using Chrome's developer tools.
+1. Right click on the webpage
+2. Select `Developer Tools` --> `Inspect`
+3. Select `Application` from the top-most menu in the Inspection Dialogue that appears
+4. Select `Storage` --> `Cookies` from the left-hand menu
+5. Chose the host and then the cookie to inspect. As long as a user is logged-in to Rango, a Session ID cookie should be present.
+The session functionality is implemented via the `MIDDLEWARE` list in `settings.py` and the inclusion of the `django.contrib.sessions.middleware.SessionMiddleware` module. The `SessionMiddleware` module is highly adaptable but the most straightforward approach is to have keep track of session data in a Django model/database. This is done by ensuring 'django.contrib.sessions' is present in `INSTALLED_APPS`. Caching sessions may provide better performance - see the Django documentation for details of this approach.
+## Interacting with Cookies
+Django's `request` object provides several methods for interacting with cookies:
+- `set_test_cookie`
+- `test_cookie_worked`
+- `delete_test_cookie`
+
+**N.B.** Two different views are required for testing cookies because the server has to wait and see if the client's browser accepted/allowed the cookie.
+
+**N.B.** When querying a cookie in Python/Django, all values are returned as strings. It is necessary to typecast the output to an integer (or typecast for whatever other types stored in cookies that are being retrieved).
+
+## Session Data
