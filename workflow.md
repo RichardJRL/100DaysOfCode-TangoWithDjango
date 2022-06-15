@@ -279,3 +279,25 @@ Django's `request` object provides several methods for interacting with cookies:
 **N.B.** When querying a cookie in Python/Django, all values are returned as strings. It is necessary to typecast the output to an integer (or typecast for whatever other types stored in cookies that are being retrieved).
 
 ## Session Data
+Server-side session data can be accessed via the `request.session.get()` method and stored by using `request.session[]`. A Session ID cookie is still required to associate a particular client with a session, but that is all that needs to be stored on a client.
+### Browser-Length and Persistent Sessions
+- Browser-length sessions expire when a user closes their browser
+- Persistent sessions expire after a period of the web developer's choosing.
+
+The default is for persistent sessions. To enable browser-length sessions instead, add the following boolean variable to `settings.py`: `SESSION_EXPIRE_AT_BROWSER_CLOSE = True`. It does not need to be present and set to false for persistent sessions to be active, although the setting `SET_COOKIE_AGE = [num_seconds]` needs to be present in order to specify how long the Session ID cookie is valid for.
+## Clearing The Sessions Database
+This is done with `manage.py clearsessions` and Django suggests doing this daily via a cronjob. 
+## Other Considerations
+- Never store sensitive information in a client-side cookie.
+- Never assume that users will allow all the client-side cookies you want to set.
+## Workflow
+### Client-Side Cookies
+1. Check if the cookie you want already exists in the client's cookie store. It should be sent to the server in the HTML request if it does. e.g. 'request.COOKIES.has_key['last_visit']'
+2. If the cookie exists, retrieve it's values with `value = int(request.COOKIES['key'])`. **N.B,** all values are returned as strings, so typecast if necessary.
+3. If the cookie does not exist or it needs to be updated, pass the new value to the response object. e.g. `response.set_cookie('cookie_name', value)`
+
+### Session-Based Cookies
+1. Ensure `MIDDLEWARE` in `settings.py` contains `django.contrib.sessions.middleware.SessionMiddleware`.
+2. Configure the SESSION_ENGINE variable in `settings.py`
+3. Check if the cookie exists with `request.sessions.get()`
+4. Set or update the cookie with the session dictionary. e.g. `request.session['cookie_name'] = `
