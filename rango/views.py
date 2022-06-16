@@ -29,7 +29,6 @@ def index(request):
     # context_dict['boldmessage'] = 'This is the Tango with Django demonstration app'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
-    context_dict['visits'] = int(request.session['visits'])
 
     "Rango says hey there partner! For more information about Rango please click on <a href='/rango/about/'>About</a>"
     # request.session.set_test_cookie()
@@ -42,14 +41,17 @@ def index(request):
 
 
 def about(request):
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED")
-        request.session.delete_test_cookie()
-    print(f"Request method:", request.method)
-    print(f"Requesting user:", request.user)
+    # if request.session.test_cookie_worked():
+    #     print("TEST COOKIE WORKED")
+    #     request.session.delete_test_cookie()
+    # print(f"Request method:", request.method)
+    # print(f"Requesting user:", request.user)
+    visitor_cookie_handler(request)
     context_dict = {'boldmessage': 'RichardJRL'}
-    return render(request, 'rango/about.html', context=context_dict)
-
+    context_dict['visits'] = int(request.session['visits'])
+    response = render(request, 'rango/about.html', context=context_dict)
+    # return render(request, 'rango/about.html', context=context_dict)
+    return response
 
 def show_category(request, category_name_slug):
     # Create a context dictionary wich we can pass
