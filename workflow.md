@@ -301,3 +301,25 @@ This is done with `manage.py clearsessions` and Django suggests doing this daily
 2. Configure the SESSION_ENGINE variable in `settings.py`
 3. Check if the cookie exists with `request.sessions.get()`
 4. Set or update the cookie with the session dictionary. e.g. `request.session['cookie_name'] = `
+
+# Summary of Chapter 11
+## The Django Registration Redux Application
+The `djangorRegistration-redux` module that is imported here is treated as an entirely separate application, and as such, needs files related to it kept in separate directories to those of other applications within the project. This goes for both Python files and HTML template files.
+As an application it also needs to be added to the `INSTALLED_APPS` list in the Django project's `settings.py` file and it has several variables that control its behaviour that can be set in the same file, including:
+- REGISTRATION_OPEN
+- REGISTRATION_AUTO_LOGIN
+- LOGIN_REDIRECT_URL
+It also needs `path('accounts/', include('registration.backends.simple.urls'))` adding to the *Django project's* `urls.py` file which provides a number of sub-URL paths for various account management functions:
+```
+Activity                URL                         Mapping Name
+                        /accounts...
+Login                   .../login/                  auth_login
+Logout                  .../logout/                 auth_logout
+Registration            .../register/               registration_register
+Registration Closed     .../register/closed/        registration_disallowed
+Password Change         .../password/change/        auth_password_change
+Change Complete         .../password/change/done/   auth_password_change_done
+```
+
+
+

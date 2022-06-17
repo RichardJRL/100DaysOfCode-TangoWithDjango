@@ -25,4 +25,15 @@ urlpatterns = [
     # The following line maps any URLs staring with 'rango/' to be handled by the rango application
     path('rango/', include('rango.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# The accounts path has the following sub-URL paths
+# Activity                URL                         Mapping Name
+#                         /accounts...
+# Login                   .../login/                  auth_login
+# Logout                  .../logout/                 auth_logout
+# Registration            .../register/               registration_register
+# Registration Closed     .../register/closed/        registration_disallowed
+# Password Change         .../password/change/        auth_password_change
+# Change Complete         .../password/change/done/   auth_password_change_done

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Both work for what is asked for in creating the first view in the 'Django Basics' chapter
     # 'rango.apps.RangoConfig',
     'rango',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -118,8 +119,20 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
+# User registration
+# If true, users can register.
+REGISTRATION_OPEN = True
+
+# If True, teh user will be automatically logged in after registering.
+REGISTRATION_AUTO_LOGIN = True
+
+# The URL that Django redirects users to after logging in.
+LOGIN_REDIRECT_URL = 'rango:index'
+
 # Login handling
 # for use with the @login_required decorator
+# The page users are directed to if they are not logged in.
+# This was set in a previous chapter. The registration package uses this, too.
 LOGIN_URL = 'rango:login'
 
 # Internationalization
