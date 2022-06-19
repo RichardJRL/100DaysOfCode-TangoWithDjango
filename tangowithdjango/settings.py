@@ -132,8 +132,6 @@ LOGIN_REDIRECT_URL = 'rango:index'
 # Login handling
 # for use with the @login_required decorator
 # The page users are directed to if they are not logged in.
-# This was set in a previous chapter. The registration package uses this, too.
-# LOGIN_URL = 'rango:login'
 LOGIN_URL = 'auth_login'
 
 # Internationalization

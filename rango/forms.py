@@ -47,6 +47,7 @@ class PageForm(forms.ModelForm):
         return cleaned_data
 
 
+# TODO: Not sure this is needed now that user accounts are handled by django-registration-redux
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -55,6 +56,7 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password',)
 
 
+# TODO: Not sure this is needed now that user accounts are handled by django-registration-redux
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
