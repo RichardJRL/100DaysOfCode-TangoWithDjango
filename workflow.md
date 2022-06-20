@@ -323,4 +323,6 @@ Change Complete         .../password/change/done/   auth_password_change_done
 ## HTML Templates for Django Registration Redux
 A good set of HTML templates for `django-registration-redux` is available on [GitHub](https://github.com/macdhuibh/django-registration-templates). These will save writing out your own templates from scratch. Note that in the Tango With Django project, the `django-registration-redux` app HTML templates still extend the 'rango/base.html' template in order to ensure a totally consistent look and feel for the whole Rango website.
 
-
+# Summary of Chapter 12
+## Adding CSS and Javascript to Django Websites
+The book uses the Twitter Bootstrap 4 toolkit to style the Rango app with JavaScript and CSS. The Twitter Bootstrap 4 toolkit is used for creating *responsive web applications* which is to say websites that adapt to the screen resolution and size they are displayed on (e.g. adapting between a smartphone, tablet and desktop computer).
