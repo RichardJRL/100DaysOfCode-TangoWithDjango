@@ -24,7 +24,7 @@
         {% if user.is_authenticated %}
             <a href="{% url 'rango:add_page' category.slug %}">Add a Page to the {{ category.name }} category</a><br/>
         {% else %}
-            <a href="{% url 'rango:login' %}">You must login before you can add a page to the {{ category.name }} category</a>
+            <a href="{% url 'auth_login' %}">You must login before you can add a page to the {{ category.name }} category</a>
         {% endif %}
     {% else %}
         The specified category does not exist.
