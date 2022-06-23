@@ -326,3 +326,15 @@ A good set of HTML templates for `django-registration-redux` is available on [Gi
 # Summary of Chapter 12
 ## Adding CSS and Javascript to Django Websites
 The book uses the Twitter Bootstrap 4 toolkit to style the Rango app with JavaScript and CSS. The Twitter Bootstrap 4 toolkit is used for creating *responsive web applications* which is to say websites that adapt to the screen resolution and size they are displayed on (e.g. adapting between a smartphone, tablet and desktop computer).
+
+## Bootstrap Layouts
+Examples of the various pre-defined Bootstrap layouts can be found...
+Replace simple `base.html` with a styled version, update elements of all other templates to match.
+
+## Cascading Style Sheets (CSS)
+Crash course link...
+Adding classes to HTML tags to add style...
+Reference of classes available in the bootstrap toolkit
+
+## The Login Page
+Replace the `{{ form.as_p }}` tag with styled elements of the form itself. The elements of the form were found by viewing the rendered version of the page with `{{ form.as_p }}` and copying them back to the template before adding the relevant bootstrap toolkit classes to the HTML tags that comprise the form elements.
