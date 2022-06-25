@@ -336,5 +336,5 @@ Crash course link...
 Adding classes to HTML tags to add style...
 Reference of classes available in the bootstrap toolkit
 
-## The Login Page
+## Modifying `form.as_p` Pages
 Replace the `{{ form.as_p }}` tag with styled elements of the form itself. The elements of the form were found by viewing the rendered version of the page with `{{ form.as_p }}` and copying them back to the template before adding the relevant bootstrap toolkit classes to the HTML tags that comprise the form elements.
