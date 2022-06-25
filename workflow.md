@@ -325,16 +325,31 @@ A good set of HTML templates for `django-registration-redux` is available on [Gi
 
 # Summary of Chapter 12
 ## Adding CSS and Javascript to Django Websites
-The book uses the Twitter Bootstrap 4 toolkit to style the Rango app with JavaScript and CSS. The Twitter Bootstrap 4 toolkit is used for creating *responsive web applications* which is to say websites that adapt to the screen resolution and size they are displayed on (e.g. adapting between a smartphone, tablet and desktop computer).
+The book uses the Twitter [Bootstrap 4 toolkit](https://getbootstrap.com) to style the Rango app with JavaScript and CSS. The Twitter Bootstrap 4 toolkit is used for creating *responsive web applications* which is to say websites that adapt to the screen resolution and size they are displayed on (e.g. adapting between a smartphone, tablet and desktop computer).
 
 ## Bootstrap Layouts
-Examples of the various pre-defined Bootstrap layouts can be found...
-Replace simple `base.html` with a styled version, update elements of all other templates to match.
+Examples of the various pre-defined Bootstrap layouts can be found on the [Bootstrap website](https://getbootstrap.com/docs/4.2/examples/).
+Replace simple `base.html` with a Bootstrap styled version, then update elements of all other templates to match.
 
 ## Cascading Style Sheets (CSS)
-Crash course link...
-Adding classes to HTML tags to add style...
-Reference of classes available in the bootstrap toolkit
+The Tango with Django book has an appendix called "A CSS Crash Course" which is a useful primer on CSS.
+Mostly the Bootstrap chapter in the book relies on adding additional classes to HTML tags to add style to the site. This is referred to as "Inline CSS" but this is not good as it removes the separation between what are called the "presentational semantics" (the CSS) and the "content" (the HTML). Ideally, as many of the classes concerned with presentation as possible should be removed to a separate CSS file.
+
+Reference of classes available in the bootstrap toolkit is [here](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 
 ## Modifying `form.as_p` Pages
-Replace the `{{ form.as_p }}` tag with styled elements of the form itself. The elements of the form were found by viewing the rendered version of the page with `{{ form.as_p }}` and copying them back to the template before adding the relevant bootstrap toolkit classes to the HTML tags that comprise the form elements.
+Some HTML templates previously rendered the form using the `{{ form.as_p }}` shortcut command. In order to style these pages with the Bootstrap toolkit, it is necessary to replace the `{{ form.as_p }}` tag with styled elements of the form itself. The HTML elements of the form were found by viewing the rendered version of the page with `{{ form.as_p }}` and copying them back to the template before adding the relevant bootstrap toolkit classes to the HTML tags that comprise the form elements.
+
+Not all forms were rendered with the `{{ form.as_p }}` shortcut command. Others used the twin-loop structure for the visible and invisible elements. I don't quite know what the difference was.
+
+## Automating Form Creation
+The chapter closes with the comment that it would be better to instruct Django to insert the appropriate classes into the form automatically, rather than editing each form HTML template manually. The book leaves it as an exercise to the reader to figure out how to do it. 
+
+## Other CSS Resources and Toolkits
+The [StartBootstrap](http://startbootstrap.com/) website is recommended for Bootstrap themes.
+Other CSS toolkits recommended are:
+[Zurb](http://zurb.com)
+[Pure](https://purecss.io)
+[GroundWorkd](https://groundworkcss.github.io/groundwork/)
+
+READ THE CSS CRASH COURSE APPENDIX
