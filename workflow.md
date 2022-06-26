@@ -337,6 +337,22 @@ Mostly the Bootstrap chapter in the book relies on adding additional classes to 
 
 Reference of classes available in the bootstrap toolkit is [here](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 
+CSS is included in a webpage by including a link to the stylesheet within the `<head>` HTML tag on the webpage. 
+e.g. `<link rel="stylesheet" type=text/css href="HRL/TO/stylesheet.css" />`
+
+## CSS Selectors
+### Element Selectors
+These apply to all instances of an HTML tag. In the stylesheet they are written `h1 { ... }`.
+### ID Selectors
+These apply only to an individual, singular HTML tag that specifically includes the `id=[NAME]` attribute and represent a much more fine-grained way of applying a style to only a single element of the webpage. In the stylesheet they are written `#[ID_NAME] { ... }`.
+### Class Selectors
+These apply to only the specific HTML tags that include the `class=[CLASSNAME]` attribute and represent the way of applying a style to a select group of elements on a webpage. In the stylesheet they are written`.[ID_NAME] { ... }`
+
+Stylesheets are considered to be static media and should therefore be placed in the Django project's `static` media directory.
+
+## Choosing Colurs
+The website [ColorCombos.com](https://colorcombos.com) is good for choosing a website colour theme.
+
 ## Modifying `form.as_p` Pages
 Some HTML templates previously rendered the form using the `{{ form.as_p }}` shortcut command. In order to style these pages with the Bootstrap toolkit, it is necessary to replace the `{{ form.as_p }}` tag with styled elements of the form itself. The HTML elements of the form were found by viewing the rendered version of the page with `{{ form.as_p }}` and copying them back to the template before adding the relevant bootstrap toolkit classes to the HTML tags that comprise the form elements.
 
@@ -352,4 +368,4 @@ Other CSS toolkits recommended are:
 [Pure](https://purecss.io)
 [GroundWorkd](https://groundworkcss.github.io/groundwork/)
 
-READ THE CSS CRASH COURSE APPENDIX
+# Summary of Chapter 13
