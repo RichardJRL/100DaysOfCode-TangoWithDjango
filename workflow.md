@@ -369,3 +369,10 @@ Other CSS toolkits recommended are:
 [GroundWorkd](https://groundworkcss.github.io/groundwork/)
 
 # Summary of Chapter 13
+## The Bing Search API
+In order to allow users to search the Rango app instead of just browsing for categories, it is possible to integrate a search API and the one the authors have chosen is Mircosoft's Bing API.
+It is necessary to register for a Bing API key here on [Azure](https://account.windowsazure.com7).
+
+More generally, a very good primer on creating [RESTful web APIs](http://blog.luisrei.com/articles/rest.html0)
+
+

@@ -1,5 +1,8 @@
 # Copied from https://djangowaves.com/tips-tricks/gitignore-for-a-django-project/
 
+# Rango #
+bing.key
+
 # Django #
 *.log
 *.pot
