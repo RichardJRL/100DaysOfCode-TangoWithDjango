@@ -1,7 +1,9 @@
 import json
 import requests
 
-# Add your Microsoft Account Key to a file called bing.key
+from requests import HTTPError
+
+
 def read_bing_key():
     """
     reads the BING API key from a file called 'bing.key'
@@ -31,13 +33,14 @@ def read_bing_key():
 
     return bing_api_key
 
+
 def run_query(search_terms):
     """
     See Microsoft's documentation on other parameters that you can set.
     http://bit.ly/twd-bing-api
 
     :param search_terms:
-    :return:
+    :return: dictionary of results if query succeeds, None in case of any error.
     """
 
     bing_key = read_bing_key()
@@ -47,14 +50,29 @@ def run_query(search_terms):
 
     # Issue the request, given the details above
     response = requests.get(search_url, headers=headers, params=params)
-    response.raise_for_status()
-    search_results = response.json()
+    try:
+        response.raise_for_status()
+        search_results = response.json()
 
-    # With the response now in play, build up a Python list
-    results = []
-    for result in search_results['webPages']['value']:
-        results.append({
-            'title': result['name'],
-            'link': result['url'],
-            'summary': result['snippet']})
-    return results
+        # With the response now in play, build up a Python list
+        results = []
+        for result in search_results['webPages']['value']:
+            results.append({
+                'title': result['name'],
+                'link': result['url'],
+                'summary': result['snippet']})
+        return results
+    except HTTPError:
+        return None
+
+
+def main():
+
+
+# TODO: Write code so that run_query can be run on the command line independently from Rango
+# The exercise demands that the user should be prompted to enter a query, using input()
+# The query should be run using run_query() and then the results should be printed.
+
+if __name__ == '__main__':
+    print('Ready to run a Bing search query...')
+    main()
