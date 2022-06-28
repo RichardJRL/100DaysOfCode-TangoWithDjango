@@ -63,6 +63,8 @@ def run_query(search_terms):
                 'summary': result['snippet']})
         return results
     except HTTPError:
+        print(HTTPError.errno)
+        print("HTTP ERROR - Cannot perform search")
         return None
 
 
@@ -72,6 +74,7 @@ def main():
 # TODO: Write code so that run_query can be run on the command line independently from Rango
 # The exercise demands that the user should be prompted to enter a query, using input()
 # The query should be run using run_query() and then the results should be printed.
+    return None
 
 if __name__ == '__main__':
     print('Ready to run a Bing search query...')
