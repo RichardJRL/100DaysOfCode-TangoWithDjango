@@ -44,9 +44,9 @@ def run_query(search_terms):
     """
 
     bing_key = read_bing_key()
-    search_url = 'https://api.cognitive.microsoft.com/bing/v7.0/search'
+    search_url = 'https://api.bing.microsoft.com/v7.0/search'
     headers = {'Ocp-Apim-Subscription-Key': bing_key}
-    params = {'q': search_terms, 'textDecorations': True, 'textFormat': 'HTML'}
+    params = {'q': search_terms, 'mkt': 'en-UK', 'textDecorations': True, 'textFormat': 'HTML'}
 
     # Issue the request, given the details above
     response = requests.get(search_url, headers=headers, params=params)
@@ -62,9 +62,10 @@ def run_query(search_terms):
                 'link': result['url'],
                 'summary': result['snippet']})
         return results
-    except HTTPError:
-        print(HTTPError.errno)
-        print("HTTP ERROR - Cannot perform search")
+    except HTTPError as h:
+        # Better troubleshooting information is in the response object,
+        # including the HTTP error code and message, which do not get passed to the HTTPError object!
+        print("HTTP Error", response.status_code, "-", response.reason)
         return None
 
 
