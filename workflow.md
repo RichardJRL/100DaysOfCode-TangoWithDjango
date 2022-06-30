@@ -375,4 +375,20 @@ It is necessary to register for a Bing API key here on [Azure](https://account.w
 
 More generally, a very good primer on creating [RESTful web APIs](http://blog.luisrei.com/articles/rest.html0)
 
+## Adding Bing Search
+To make a call to the Bing search API, an HTTP Post request is made using the Python `requests` module, having first pre-prepared the parameters of the API call into dictionaries.
 
+The API key is passed in the `header` variable for the function call, the search query and other options are the `params` variable of the call. The `param`s then appear as a list of options after a `?` character in the URL as the query is sent.
+```
+bing_key = read_bing_key()
+search_url = 'https://api.bing.microsoft.com/v7.0/search'
+headers = {'Ocp-Apim-Subscription-Key': bing_key}
+params = {'q': search_terms, 'mkt': 'en-UK', 'textDecorations': True, 'textFormat': 'HTML'}
+
+response = requests.get(search_url, headers=headers, params=params)
+```
+Checking whether a response from Bing was received is accomplished by `response.raise_for_status()` which raises an exception if an HTTP error was received. The error code can be read from the `response` object itself, not the `HTTPError` object caught by the `try/except` block. Specifically `response.status_code` and `response.reason`.
+
+If valid results are received, they are accessed by `search_results = response.json()` and these can then be iterated over.
+
+Integrating the search page into the website is accomplished the same as any other. An URL mapping, view and template must be created. It is the view that checks whether to display a search box or the search result based on whether the request was an HTTP post or not (`if request.method == 'POST':`) and it is the template that contains the search form. 
