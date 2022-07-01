@@ -66,7 +66,8 @@ def show_category(request, category_name_slug):
 
         # Retrieve all of the associated pages.
         # The filter() will return a list of page objects or an empty list>
-        pages = Page.objects.filter(category=category)
+        pages = Page.objects.filter(category=category).order_by('-views')
+        # pages.order_by('views')
 
         # Adds our results list to the template context under name pages.
         context_dict['pages'] = pages
@@ -227,3 +228,25 @@ def search(request):
             result_list = run_query(query)
 
     return render(request, 'rango/search.html', {'query': query, 'result_list': result_list})
+
+
+def goto_url(request):
+    page_id = None
+    if request.method == 'GET':
+        page_id = request.GET['page_id'].strip()
+        # This is equivalent to the method above - two ways of doing the same thing
+        page_id = request.GET.get('page_id')
+
+
+        # • In the view, get() the Page with an id of page_id (from the GET request).
+        try:
+            page = Page.objects.get(id=page_id)
+        except Page.DoesNotExist:
+            return redirect(reverse('rango:index'))
+
+        page.views += 1
+        page.save()
+
+        return redirect(page.url)
+
+
