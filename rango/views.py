@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+import rango.views
 from rango.bing_search import run_query
-from rango.forms import CategoryForm, PageForm
+from rango.forms import CategoryForm, PageForm, UserProfileForm
 from rango.models import Category, Page
 
 
@@ -33,9 +34,9 @@ def index(request):
     # request.session.set_test_cookie()
 
     # Obtain our Response object early so we can add cookie information
-    response = render(request, 'rango/index.html', context=context_dict)
-
-    # return render(request, 'rango/index.html', context=context_dict)
+    # response = render(request, 'rango/index.html', context=context_dict)
+    # response = render(request, reverse('rango:index'), context=context_dict)
+    return render(request, 'rango/index.html', context=context_dict)
     return response
 
 
@@ -248,7 +249,6 @@ def goto_url(request):
         # This is equivalent to the method above - two ways of doing the same thing
         page_id = request.GET.get('page_id')
 
-
         # • In the view, get() the Page with an id of page_id (from the GET request).
         try:
             page = Page.objects.get(id=page_id)
@@ -261,3 +261,20 @@ def goto_url(request):
         return redirect(page.url)
 
 
+@login_required
+def register_profile(request):
+    form = UserProfileForm()
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            # Save the user profile information to the database
+            user_profile = form.save(commit=False)
+            user_profile.user = request.user
+            user_profile.save()
+            return redirect(reverse('rango:index'))
+        else:
+            print(form.errors)
+            return redirect(reverse('rango:index'))
+    return render(request, 'rango/profile_registration.html', {'form': form})
