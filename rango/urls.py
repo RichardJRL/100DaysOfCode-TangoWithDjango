@@ -10,7 +10,7 @@ urlpatterns = [
     path('add_category/', views.add_category, name='add_category'),
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('restricted/', views.restricted, name='restricted'),
-    path('search/', views.search, name='search'),
+    # path('search/', views.search, name='search'),
     path('goto/', views.goto_url, name='goto'),
     # NB: User account administration URLs are now handed by entries in tangowithdjango/urls.py
     # as they are now handed by the django-registration-redux app,
