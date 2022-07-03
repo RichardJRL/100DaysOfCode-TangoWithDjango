@@ -1,0 +1,42 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Edit {{ user.username }}'s Profile
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="jumbotron p-4">
+        <div class="container">
+            <h1 class="jumbotron-heading">Rango says...</h1>
+            <h2 class="h2">this is the profile for {{ user.username }}</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <img src="{{ MEDIA_URL }}{{ user_profile.picture }}"
+                 width="300"
+                 height="300"
+                 alt="{{ user_form.username }}'s profile image"/>
+            <br/>
+            <div>
+                {% if user_form.user == user %}
+                    <form method="post" action="." enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Update"/>
+                    </form>
+                {% else %}
+                    <p>
+                        <strong>Website:</strong>
+                        <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        {# Put the form data here#}
+    </div>
+
+{% endblock %}
