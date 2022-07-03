@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views import View
 
 import rango.views
 from rango.bing_search import run_query
@@ -281,31 +283,73 @@ def register_profile(request):
     return render(request, 'rango/profile_registration.html', {'form': form})
 
 
-def profile(request):
-    user = User
-    user_profile = UserProfile
-    user_profile_form = UserProfileForm
+# def profile(request):
+#     user = User
+#     user_profile = UserProfile
+#     user_profile_form = UserProfileForm
+#
+#     if request.method == 'POST':
+#         # User Form first
+#         # user_form =
+#         # User Profile Form second
+#         user_profile_form = UserProfileForm(request.POST, request.FILES)
+#
+#         if form.is_valid():
+#             # Save the ser information to the database
+#             user = user.save(commit=False)
+#             user.save()
+#             # Save the user profile information to the database
+#             user_profile = form.save(commit=False)
+#             user_profile.user = user.username # TODO: Check user.user or user.username
+#             user_profile.save()
+#             return redirect(reverse('rango:index'))
+#         else:
+#             print(form.errors)
+#             return redirect(reverse('rango:index'))
+#
+#     context_dict['user_form'] = user_form
+#     context_dict['user_profile'] = user_profile
+#     context_dict['user_profile_form'] = user_profile_form
+#     return render(request, 'rango/profile.html', context_dict)
 
-    if request.method == 'POST':
-        # User Form first
-        # user_form =
-        # User Profile Form second
-        user_profile_form = UserProfileForm(request.POST, request.FILES)
+class ProfileView(View):
+    def get_user_details(self, username):
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
 
+        user_profile = UserProfile.objects.get_or_create(user=user)[0]
+        form = UserProfileForm({'website': user_profile.website, 'picture': user_profile.picture})
+
+        return (user, user_profile, form)
+
+    @method_decorator(login_required)
+    def get(self, request, username):
+        try:
+            (user, user_profile, form) = self.get_user_details(username)
+        except TypeError:
+            return redirect('rango:index')
+
+        context_dict = {'user_profile': user_profile,
+                        'user': user,
+                        'form': form}
+        return render(request, 'rango/profile.html', context_dict)
+
+    @method_decorator(login_required)
+    def post(self, request, username):
+        try:
+            (user, user_profile, form) = self.get_user_details(username)
+        except TypeError:
+            return redirect('rango:index')
+
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
-            # Save the ser information to the database
-            user = user.save(commit=False)
-            user.save()
-            # Save the user profile information to the database
-            user_profile = form.save(commit=False)
-            user_profile.user = user.username # TODO: Check user.user or user.username
-            user_profile.save()
-            return redirect(reverse('rango:index'))
+            form.save(commit=True)
+            return redirect('rango:profile', user.username)
         else:
             print(form.errors)
-            return redirect(reverse('rango:index'))
-
-    context_dict['user_form'] = user_form
-    context_dict['user_profile'] = user_profile
-    context_dict['user_profile_form'] = user_profile_form
-    return render(request, 'rango/profile.html', context_dict)
+        context_dict = {'user_profile': user_profile,
+                        'user': user,
+                        'form': form}
+        return render(request, 'rango/profile.html', context_dict)
