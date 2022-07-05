@@ -56,7 +56,6 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password',)
 
 
-# TODO: Not sure this is needed now that user accounts are handled by django-registration-redux
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

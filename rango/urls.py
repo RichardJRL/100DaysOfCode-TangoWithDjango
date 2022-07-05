@@ -13,7 +13,7 @@ urlpatterns = [
     # path('search/', views.search, name='search'),
     path('goto/', views.goto_url, name='goto'),
     path('register_profile/', views.register_profile, name='register_profile'),
-    path('profile/', views.ProfileView, name='profile'),
+    path('profile/<username>', views.ProfileView.as_view(), name='profile'),
     # NB: User account administration URLs are now handed by entries in tangowithdjango/urls.py
     # as they are now handed by the django-registration-redux app,
 

@@ -2,6 +2,7 @@
 
 # Rango #
 bing.key
+/media/profile_images/*
 
 # Django #
 *.log

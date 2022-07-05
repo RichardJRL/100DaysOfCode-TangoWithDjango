@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Edit {{ user.username }}'s Profile
+    Edit {{ selected_user.username }}'s Profile
 {% endblock %}
 
 {% block body_block %}
@@ -10,7 +10,7 @@
     <div class="jumbotron p-4">
         <div class="container">
             <h1 class="jumbotron-heading">Rango says...</h1>
-            <h2 class="h2">this is the profile for {{ user.username }}</h2>
+            <h2 class="h2">this is the profile for {{ selected_user.username }}</h2>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
             <img src="{{ MEDIA_URL }}{{ user_profile.picture }}"
                  width="300"
                  height="300"
-                 alt="{{ user_form.username }}'s profile image"/>
+                 alt="{{ selected_user.username }}'s profile image"/>
             <br/>
             <div>
                 {% if user_form.user == user %}
@@ -36,7 +36,6 @@
                 {% endif %}
             </div>
         </div>
-        {# Put the form data here#}
     </div>
 
 {% endblock %}

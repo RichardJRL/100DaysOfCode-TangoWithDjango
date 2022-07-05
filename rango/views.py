@@ -329,10 +329,10 @@ class ProfileView(View):
         try:
             (user, user_profile, form) = self.get_user_details(username)
         except TypeError:
-            return redirect('rango:index')
+            return redirect(reverse('rango:index'))
 
         context_dict = {'user_profile': user_profile,
-                        'user': user,
+                        'selected_user': user,
                         'form': form}
         return render(request, 'rango/profile.html', context_dict)
 
@@ -341,7 +341,7 @@ class ProfileView(View):
         try:
             (user, user_profile, form) = self.get_user_details(username)
         except TypeError:
-            return redirect('rango:index')
+            return redirect(reverse('rango:index'))
 
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
@@ -350,6 +350,6 @@ class ProfileView(View):
         else:
             print(form.errors)
         context_dict = {'user_profile': user_profile,
-                        'user': user,
+                        'selected_user': user,
                         'form': form}
         return render(request, 'rango/profile.html', context_dict)
