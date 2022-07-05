@@ -7,7 +7,7 @@
 
 {% block body_block %}
 
-    <div class="jumbotron p-4">
+    <div class="jumbotron p-4" xmlns="http://www.w3.org/1999/html">
         <div class="container">
             <h1 class="jumbotron-heading">Rango says...</h1>
             <h2 class="h2">this is the profile for {{ selected_user.username }}</h2>
@@ -16,20 +16,48 @@
 
     <div class="container">
         <div class="row">
-            <img src="{{ MEDIA_URL }}{{ user_profile.picture }}"
-                 width="300"
-                 height="300"
-                 alt="{{ selected_user.username }}'s profile image"/>
-            <br/>
             <div>
-                {% if user_form.user == user %}
-                    <form method="post" action="." enctype="multipart/form-data">
+                {% if selected_user == user %}
+                    <form id="profile_registration_form"
+                          role="form"
+                          method="post"
+                          enctype="multipart/form-data"
+                          action=".">
                         {% csrf_token %}
-                        {{ form.as_p }}
+
+                        <p>
+                            <img src="{{ MEDIA_URL }}{{ user_profile.picture }}"
+                                 width="300"
+                                 height="400"
+                                 alt="{{ selected_user.username }}'s profile image"/>
+                            <br/>
+                        </p>
+                        <p>
+                            <label for="id_picture">Picture:</label>
+                            <input type="file"
+                                   name="picture"
+                                   accept="image/*"
+                                   id="id_picture">
+                        </p>
+                        <p>
+                            <label for="id_website">Website:</label>
+                            <input type="url"
+                                   name="website"
+                                   maxlength="200"
+                                   id="id_website"
+                                   value="{{ user_profile.website }}">
+                        </p>
                         <input type="submit" value="Update"/>
                     </form>
                 {% else %}
                     <p>
+                        <strong>Error? User is not logged in?</strong>
+                        <strong>Picture:</strong>
+                        <img src="{{ MEDIA_URL }}{{ user_profile.picture }}"
+                             width="300"
+                             height="400"
+                             alt="{{ selected_user.username }}'s profile image"/>
+                        <br/>
                         <strong>Website:</strong>
                         <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
                     </p>
@@ -37,5 +65,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
