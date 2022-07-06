@@ -247,12 +247,13 @@ def visitor_cookie_handler(request):
 
 def goto_url(request):
     page_id = None
+
     if request.method == 'GET':
         page_id = request.GET['page_id'].strip()
         # This is equivalent to the method above - two ways of doing the same thing
         page_id = request.GET.get('page_id')
 
-        # • In the view, get() the Page with an id of page_id (from the GET request).
+        # In the view, get() the Page with an id of page_id (from the GET request).
         try:
             page = Page.objects.get(id=page_id)
         except Page.DoesNotExist:
@@ -260,8 +261,10 @@ def goto_url(request):
 
         page.views += 1
         page.save()
-
         return redirect(page.url)
+
+    else:
+        return redirect(reverse('rango:index'))
 
 
 @login_required
