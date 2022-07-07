@@ -286,35 +286,6 @@ def register_profile(request):
     return render(request, 'rango/profile_registration.html', {'form': form})
 
 
-# def profile(request):
-#     user = User
-#     user_profile = UserProfile
-#     user_profile_form = UserProfileForm
-#
-#     if request.method == 'POST':
-#         # User Form first
-#         # user_form =
-#         # User Profile Form second
-#         user_profile_form = UserProfileForm(request.POST, request.FILES)
-#
-#         if form.is_valid():
-#             # Save the ser information to the database
-#             user = user.save(commit=False)
-#             user.save()
-#             # Save the user profile information to the database
-#             user_profile = form.save(commit=False)
-#             user_profile.user = user.username # TODO: Check user.user or user.username
-#             user_profile.save()
-#             return redirect(reverse('rango:index'))
-#         else:
-#             print(form.errors)
-#             return redirect(reverse('rango:index'))
-#
-#     context_dict['user_form'] = user_form
-#     context_dict['user_profile'] = user_profile
-#     context_dict['user_profile_form'] = user_profile_form
-#     return render(request, 'rango/profile.html', context_dict)
-
 class ProfileView(View):
     def get_user_details(self, username):
         try:
